@@ -1,0 +1,108 @@
+﻿Annie Cen
+UID: 305721672
+Project 7 
+
+
+Description of Added Functionalities:
+* Classes:
+   * DonationTimeline Class
+      * I made this class with the intention of making it have the sole purpose of being somewhat in charge of the time management and calculating how long it's been since the last donation and keeping the dates stored.
+      * This makes it easier to see and easier to keep track since it is important in terms of donating blood since every person can only donate once every six months, so having this class makes it easier to regulate the requirements.
+      * In terms of business logic, I made this with the idea that the business owner would want to have a more organized system of keeping track of the dates, so I thought having a separate class to manage would be a lot easier to visualize and utilize.
+   * EmployeeAccount Class
+      * This class was made to serve as a records or archive since it contains the basic information of all the employees (up to a certain amount) in an array 
+      * So every employee would be linked to their ID and so with every donation the account is updated with the weight, age, id, and specific date of when it happened
+      * By organizing it like this it will be easier for the business owner to allocate the specific information about each employee if needed
+      * This creates like a profile for every person, so basically it really improves the organization of information
+* Struct:
+   * Employee Struct
+      * I made this struct to allocate all the information about an employee to a type Employee, so I could put them into an array for easier access and storage 
+* Functions:
+   * BloodDonation Class
+      * Void updateDonationDate(DonationTimeline& time, int currentDate);
+         * I made this function so that it would update the information in the DonationTimeline class so basically when the donation happens it will replace the day of donation with the old one so now the “currentDate” will become the last recorded date of a donation that can be used later to check whether an employee can donate given the amount of waiting time (6 months) \
+         * I thought that this would be useful to a business owner since it acts as an easier to update archives essentially
+      * Bool sameDayDonation(int currentDate);
+         * I made this for the sole purpose of checking if an employee is trying to donate blood on the same day so it will take in today's date and then match it against the last donated date which will be updated with the function above so naturally it should return true that it is the same day and then they won't be able to donate
+         * This is useful to a business owner since it is just a simple preventive measure to prevent people from donating too much blood
+   * DonationTimeline Class
+      * Int timeBetweenDonation(int thisMonth, int thisYear);
+         * I made this function to calculate how long it has been since the employee donated last time to prevent people from donating within a 6 month span since they have to have waited 6 months in order to donate again so it will take in the current month and year and compare it against the last donation
+         * This is useful since it does all the calculations needed to determine whether someone is eligible to donate instead of having it up to the customer to keep track of how long they have waited
+      * Bool canDonate(int TimeBetween);
+         * This will now take in the results of that calculation and check to see if its less than 6 months of 6 months and over which would mean the employee is able to donate 
+   * EmployeeAccount Class
+      * void putEmployee(Employee someone);
+         * This function has the purpose of putting the object from employee class which is essentially an employee into the array for better storage and archive purposes
+         * This basically acts as the setter function
+      * Employee findEmployee(int EmployeeID, bool &found);
+         * This function acts as the getter function 
+         * It uses the id to match up the right employee and once the right employee is found it is able to pull whatever info such as age, weight, and id from it
+      * Void addEverythingToAccount (BloodDonation donation, DonationTimeline time);
+         * This function has the purpose of adding all the information from the instance of donation into the employees account so this is also what updates the employee account as it will keep a record of all the basic information of an employee
+         * This would be useful to a business owner since it serves as a good method to keep track of everyone
+
+
+
+
+Program Design
+* The thought behind the program design was basically to expand the original program of having the instance of a Blood Donation and then the creation of a Vacation Account as a reward system, so I wanted to make it have more foundation in terms of just storing information. I wanted to create two more classes, one being the DonationTimeline class because I thought it would make it easier to be able to see visually and organize time related information since time is an important factor to being able to donate blood since there has to be a waiting period between donations. With this idea in mind, I made it so that it would keep track of when someone last donated granted that they were able to donate, meaning I made a function that would check the time that passed then that amount would get put into a bool to check if enough time had passed. The next class I thought made sense to make was just an overarching EmployeeAccount class since I thought that it would be a good way to store all the information about an employee in one place. I visualized this as like an archive that stored everything I would want to know about an employee in terms of blood donation and an easy way of accessing it which is why I created all the functions explained above. I also added a few functions to the original BloodDonation class so it would be easier to update the dates of donation directly when a donation was made. With the updateDonationDate function the user would be able to directly update the DonationTimeline through the instance of a donation. Then I made a function for logistical purposes to make sure no employee was trying to donate on the same day!
+
+
+Test Cases
+* assert(account.getDate()  == 2182003);
+* assert(account.getAge()  == 50);
+* assert(account.getWeight()  == 150);
+* assert(account.getID()  == 123456);
+   * I chose these test cases since they test the basic functions of retrieving information from the employee account so a business would be able to see that they are easily able to access information about an employee through just the employee ID
+* assert(account.findEmployee(123456,found).mID == employee.mID);
+* assert(account.findEmployee(123456,found).mAge == employee.mAge);
+* assert(account.findEmployee(123456,found).mWeight == employee.mWeight);
+* assert(account.findEmployee(123456,found).mDate == employee.mDate);
+   * I chose these test cases since they tested if the find employee in the array functions work since these essentially make sure that once the employee is stored in the array with the rest of the they are able to be easily accessed 
+   * This is would be tested from the business perspective since it just makes sure that they are able to find out what they need to know about a specific employee
+* assert(vacayaccount.getBalance() == 0);
+   * This one tests that the balance will be initialized at 0 when it is a new account
+* assert(vacayaccount.getBalance() == 4);
+* assert(vacayaccount.getBalance() == 8);
+   *  These check that the balance increases correctly when the donations are updated
+* assert(zerotime.getID() == 126542);
+* assert(zerotime.getDay() == 0);
+* assert(zerotime.getDate() == 0);
+* assert(zerotime.getYear() == 0);
+* assert(zerotime.getMonth() == 0);
+   * The purpose of these test codes were to makes sure they were initialized correctly meaning a new account would have a default of 0 to every value which is useful to check from a business standpoint since they should make sure that there are no wrong values in a new account for whatever reason that would skew with their results or an employees ability to donate
+
+
+* assert(donortime.getID() == 123456);
+* assert(donortime.getDay() == 18);
+* assert(donortime.getDate() == 2182003);
+* assert(donortime.getYear() == 2003);
+* assert(donortime.getMonth() == 2);
+   * This one tests the same function so now they are testing the functionality of the retrieval of the information itself which is useful to the business since they would need to make sure that they are able to get whatever information they want whenever they want it
+
+
+* assert(donortime.timeBetweenDonation(3,2005) == 6);
+* assert(donortime.timeBetweenDonation(7,2003) == 5);
+* assert(donortime.timeBetweenDonation(8,2003) == 6);
+* assert(donortime.timeBetweenDonation(1,2004) == 11);
+* assert(donortime.timeBetweenDonation(1,2003) == -1);
+   *  These test cases were checks since they are crucial to determining if an employee is able to donate so they make sure to check every situation that could arise where the date is after or another year or just simply invalid to a negative time passed
+
+
+* assert(donortime.canDonate(6) == true);
+* assert(donortime.canDonate(5) == false);
+* assert(donortime.canDonate(-1) == false);
+* assert(donortime.canDonate(10) == true);
+   *  This tests that the bool that checks whether someone can donate works properly in every case so a business would definitely need to know this since it is also in the best interest of their employees since they shouldn’t donate to much within a given amount of time
+
+
+
+
+* assert(donortime.getDate() == 2182003);
+   * This is to check that the update date function works which as can seen by the next assert statement that it does in fact update the archives which the business would find important to know since it is just an easier way to update the last donation date
+* assert(donortime.getDate() == 3222023);
+
+
+* assert(donor.sameDayDonation(3222023) == true);
+   * This just makes sure that the return is correct in terms of whether someone is trying to donate on the same day which is in the businesses best interest since they wouldn’t want their employees damaging their own health
